@@ -45,7 +45,8 @@
         "title": "広告（トレンド・ポスト・広告リンク）",
         "description": "トレンド広告、イベント広告、ポストの広告、広告サービスへのリンク。広告ブロッカーを使う場合はOFFにすることをおすすめします。",
         "selectors": [
-            "a[href=\"https://ads.x.com/?ref=gl-tw-tw-twitter-ads-rweb\"]"
+            "a[href=\"https://ads.x.com/?ref=gl-tw-tw-twitter-ads-rweb\"]",
+            "div[data-testid=\"Dropdown\"] > div > div > a[href^=\"https://ads.x.com\"]"
         ],
         "scriptSelectors": [
             "[data-testid=\"cellInnerDiv\"]:has([data-testid=\"eventHero\"][data-simplify-x-ad])"
