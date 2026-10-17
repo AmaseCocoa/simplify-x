@@ -1,0 +1,34 @@
+{
+  "name": "simplify-x",
+  "type": "module",
+  "version": "1.5.0",
+  "description": "Xの不要な機能と広告を非表示にするユーザースクリプト。",
+  "author": "AmaseCocoa",
+  "license": "MIT",
+  "homepage": "https://github.com/AmaseCocoa/simplify-x",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmaseCocoa/simplify-x.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AmaseCocoa/simplify-x/issues"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "release": "bumpp",
+    "prepublishOnly": "pnpm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "bumpp": "^12.3.0",
+    "tsdown": "^0.23.1",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  }
+}
