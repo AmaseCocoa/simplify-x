@@ -17,6 +17,9 @@
             "postViews": [
                 "div:has(> a[href$=\"/analytics\"][aria-label$=\" 件の表示。ポストアナリティクスを表示\"])"
             ]
+        },
+        "textLabels": {
+            "forYouTab": "おすすめ"
         }
     },
     "en": {
@@ -37,6 +40,9 @@
             "postViews": [
                 "div:has(> a[href$=\"/analytics\"][aria-label$=\"View post analytics\"])"
             ]
+        },
+        "textLabels": {
+            "forYouTab": "For you"
         }
     }
 }

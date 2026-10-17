@@ -8,7 +8,7 @@ export type CssFormat = 'css' | 'stylus';
 export function generateCss(selected: readonly OptionKey[], version: string, format: CssFormat = 'css', language: SiteLanguage = 'ja'): string {
     const enabled = new Set(selected);
     const sections = optionKeys
-        .filter(key => enabled.has(key))
+        .filter(key => enabled.has(key) && options[key].selectors.length > 0)
         .map(key => {
             const option = options[key];
             const rules = resolveSelectors(option.selectors, language)

@@ -38,9 +38,6 @@
             {
                 "i18n": "grokActions"
             },
-            {
-                "i18n": "generateImage"
-            },
             "a[href^=\"/i/grok-redirect\"]"
         ]
     },
@@ -91,5 +88,14 @@
             "div:has(> div > div > a[href=\"/i/account_analytics\"])"
         ],
         "description": "ポストの表示回数とアナリティクスへのリンク"
+    },
+    "hideForYouTab": {
+        "title": "おすすめタブ",
+        "description": "タイムラインの「おすすめ」タブを非表示にします。",
+        "selectors": [],
+        "scriptSelectors": [
+            "[data-simplify-x-for-you]"
+        ],
+        "liteDescription": "テキスト判定が必要なためLiteでは利用できません。UserScript版で利用できます。"
     }
 }

@@ -5,6 +5,7 @@ type LocalizedSelectorKey = keyof typeof translations.ja.selectors;
 
 interface LanguageDefinition {
     name: string;
+    textLabels: { forYouTab: string };
     selectors: Record<LocalizedSelectorKey, readonly string[]>;
 }
 
@@ -42,4 +43,8 @@ export function resolveSelectors(selectors: readonly SelectorDefinition[], langu
         return localized[selector.i18n as LocalizedSelectorKey];
     });
     return [...new Set(expanded)];
+}
+
+export function forYouTabLabel(language: SiteLanguage): string {
+    return definitions[language].textLabels.forYouTab;
 }

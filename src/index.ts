@@ -1,3 +1,4 @@
+import { createForYouFilter } from "./modules/for-you";
 import { loadSettings } from "./settings";
 import { createStyles } from "./modules/styles";
 import { createAdFilter, CANDIDATE, MARK } from "./modules/ads";
@@ -5,13 +6,19 @@ import { createSettingsPage } from "./modules/settings-page";
 
 const settings = loadSettings();
 const { style, updateStyle, mountStyle, refreshLanguage } = createStyles(settings);
-const { collect, inspect, rescan } = createAdFilter(settings, style);
+const { collect, inspect, rescan: rescanAds } = createAdFilter(settings, style);
+const forYouFilter = createForYouFilter(settings);
+function rescan() {
+  rescanAds();
+  forYouFilter.rescan();
+}
 const settingsPage = createSettingsPage(settings, updateStyle, rescan);
 
 const observer = new MutationObserver((records) => {
   mountStyle();
   refreshLanguage();
   settingsPage.scheduleSettingsPage();
+  forYouFilter.processMutations(records);
   if (!settings.hideAds) return;
   const targets = new Set<Element>();
   for (const record of records) {

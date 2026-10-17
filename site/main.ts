@@ -3,6 +3,7 @@ import { generateCss, type CssFormat } from '../src/lite/css';
 import { siteLanguages, languageNames, resolveLanguage, type SiteLanguage } from '../src/i18n';
 import { version } from '../package.json';
 
+const liteOptionKeys = optionKeys.filter(key => options[key].selectors.length > 0);
 const STORAGE_KEY = 'simplify-x-lite-preferences';
 const output = document.querySelector<HTMLTextAreaElement>('#css-output')!;
 const formatSelect = document.querySelector<HTMLSelectElement>('#format')!;
@@ -46,7 +47,7 @@ for (const language of siteLanguages) {
 languageSelect.value = preferences.language;
 
 function selectedOptions(): OptionKey[] {
-    return optionKeys.filter(key => checkboxes.get(key)?.checked);
+    return liteOptionKeys.filter(key => checkboxes.get(key)?.checked);
 }
 
 function selectedFormat(): CssFormat {
@@ -61,7 +62,7 @@ function updateOutput(save = true): void {
     const selected = selectedOptions();
     output.value = generateCss(selected, version, selectedFormat(), resolveLanguage(languageSelect.value));
     document.querySelector('#filename')!.textContent = filename();
-    document.querySelector('#selection-count')!.textContent = `${selected.length} / ${optionKeys.length} 項目`;
+    document.querySelector('#selection-count')!.textContent = `${selected.length} / ${liteOptionKeys.length} 項目`;
     status.textContent = selected.length === 0
         ? '項目が選択されていないため、非表示ルールは出力されません。'
         : 'CSSを更新しました。コピーまたはダウンロードして適用してください。';
@@ -81,7 +82,8 @@ for (const key of optionKeys) {
     const input = document.createElement('input');
     input.type = 'checkbox';
     input.name = key;
-    input.checked = preferences.selected.includes(key);
+    input.disabled = !liteOptionKeys.includes(key);
+    input.checked = !input.disabled && preferences.selected.includes(key);
     input.setAttribute('aria-describedby', `description-${key}`);
 
     const text = document.createElement('span');
@@ -91,7 +93,7 @@ for (const key of optionKeys) {
     if (option.liteDescription) {
         const badge = document.createElement('span');
         badge.className = 'partial-badge';
-        badge.textContent = '一部対応';
+        badge.textContent = input.disabled ? '対象外' : '一部対応';
         title.append(badge);
     }
     const description = document.createElement('span');
@@ -107,7 +109,7 @@ for (const key of optionKeys) {
 
 for (const [id, checked] of [['select-all', true], ['select-none', false]] as const) {
     document.getElementById(id)!.addEventListener('click', () => {
-        checkboxes.forEach(input => { input.checked = checked; });
+        checkboxes.forEach(input => { input.checked = !input.disabled && checked; });
         updateOutput();
     });
 }
