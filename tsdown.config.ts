@@ -13,7 +13,7 @@ export default defineConfig({
   plugins: [
     userScriptPlugin({
       name: "Simplify X",
-      description: "Xの不要な機能と広告を非表示にします。Xの設定画面から即時設定できます。",
+      description: "Xの不要な機能と広告を非表示にします。x.com/settings以下から設定を変更できます。",
       runAt: "document-start",
       grant: [
         "GM_addStyle",
@@ -23,7 +23,10 @@ export default defineConfig({
       match: [
         'https://x.com/*',
         'https://twitter.com/*'
-      ]
+      ],
+
+      downloadURL: 'https://amasecocoa.github.io/simplify-x/simplify-x.user.js',
+      updateURL: 'https://amasecocoa.github.io/simplify-x/simplify-x.user.js'
     }),
   ],
 });
