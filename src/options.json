@@ -33,6 +33,8 @@
         "selectors": [
             "a[href=\"/i/grok\"]",
             "button[aria-label=\"Grok\"]",
+            "button[data-testid=\"grokImgGen\"]",
+            "div[role=\"presentation\"]:has(> div > div > button[data-testid=\"grokImgGen\"])",
             {
                 "i18n": "grokActions"
             },

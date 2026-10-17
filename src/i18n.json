@@ -8,9 +8,6 @@
             "grokActions": [
                 "button[aria-label=\"Grokのアクション\"]"
             ],
-            "generateImage": [
-                "div:has(> button[aria-label=\"画像を生成\"] > div > svg)"
-            ],
             "editWithImagine": [
                 "button[aria-label=\"Imagineで編集\"]"
             ],
@@ -30,9 +27,6 @@
             ],
             "grokActions": [
                 "button[aria-label=\"Grok actions\"]"
-            ],
-            "generateImage": [
-                "div:has(> button[aria-label=\"Generate Image\"] > div > svg)"
             ],
             "editWithImagine": [
                 "button[aria-label=\"Edit Image\"]"
