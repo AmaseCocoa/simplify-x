@@ -27,6 +27,8 @@
     "src",
     "tests",
     "plugins",
-    "tsdown.config.ts"
+    "tsdown.config.ts",
+    "site",
+    "tsdown.site.config.ts"
   ]
 }

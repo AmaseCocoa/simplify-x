@@ -22,7 +22,9 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "release": "bumpp",
-    "prepublishOnly": "pnpm run build"
+    "prepublishOnly": "pnpm run build",
+    "build:site": "pnpm build && tsdown --config tsdown.site.config.ts && node scripts/build-site.mjs",
+    "preview:site": "node scripts/preview-site.mjs"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",

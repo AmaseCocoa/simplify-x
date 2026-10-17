@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f5ef" />
+    <meta
+      name="description"
+      content="Xを、見たいものだけに。Simplify XのUserScriptと、選んだ項目からCSSを生成するSimplify X Lite。"
+    />
+    <title>Simplify X — 見たいものだけ、そのままに。</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23233d30'/%3E%3Cpath d='M18 18l28 28M46 18L18 46' stroke='%23d9f789' stroke-width='6'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./assets/style.css" />
+    <script type="module" src="./assets/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">本文へ移動</a>
+    <header class="site-header wrap">
+      <a class="brand" href="#" aria-label="Simplify X ホーム"
+        ><span class="brand-mark" aria-hidden="true">×</span>Simplify X<span
+          class="version"
+          data-version
+        ></span
+      ></a>
+      <nav aria-label="メインナビゲーション">
+        <a href="#editions">2つの使い方</a>
+        <a href="#lite">CSSをつくる <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/AmaseCocoa/simplify-x"
+          >GitHub <span aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero wrap" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="status-dot"></span> LESS NOISE. MORE TIMELINE.
+          </p>
+          <h1 id="hero-title">
+            見たいものだけ、<br /><span>そのままに。</span>
+          </h1>
+          <p class="hero-description">
+            Grok、プレミアム、おすすめ。<br />Xのにぎやかな画面を、あなたのペースに。<br />Simplify
+            Xで、タイムラインに余白を。
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#lite"
+              >LiteでCSSをつくる <span aria-hidden="true">↗</span></a
+            ><a class="text-link" href="#editions"
+              >UserScript版を見る <span aria-hidden="true">↓</span></a
+            >
+          </div>
+          <p class="small muted">
+            無料・オープンソース / x.com・twitter.com 対応
+          </p>
+        </div>
+        <div
+          class="hero-art"
+          aria-label="不要な項目を非表示にしたタイムラインのイメージ。実際のX画面ではありません。"
+        >
+          <div class="art-caption">
+            <span>YOUR TIMELINE, SIMPLIFIED.</span><span>01 / 02</span>
+          </div>
+          <div class="mock-window">
+            <div class="mock-top">
+              <span class="window-dots">● ● ●</span><span>x.com / home</span
+              ><span>↗</span>
+            </div>
+            <div class="mock-layout">
+              <div class="mock-nav">
+                <strong>𝕏</strong
+                ><span class="mock-active">⌂ <span>ホーム</span></span
+                ><span>⌕ <span>話題を検索</span></span
+                ><span>♧ <span>通知</span></span
+                ><span>✉ <span>メッセージ</span></span
+                ><span class="mock-removed">◇ <span>Grok</span></span
+                ><span class="mock-removed">☆ <span>プレミアム</span></span
+                ><span class="mock-post">ポストする</span>
+              </div>
+              <div class="mock-feed">
+                <div class="mock-tabs">おすすめ<span>フォロー中</span></div>
+                <div class="mock-compose">
+                  <span class="avatar green">a</span
+                  ><span>いま、なにしてる？</span>
+                </div>
+                <article class="mock-tweet">
+                  <span class="avatar peach">k</span>
+                  <div>
+                    <strong>こもれび <span>@komorebi · 5分</span></strong>
+                    <p>
+                      今日は少し遠回りして帰ろう。<br />いい景色を見つけたので。
+                    </p>
+                    <div class="mock-landscape"><span></span></div>
+                    <div class="mock-reactions">♡　 12　　 ⇄　 3　　 ↗</div>
+                  </div>
+                </article>
+                <article class="mock-tweet">
+                  <span class="avatar lilac">m</span>
+                  <div>
+                    <strong>みずき <span>@mizuki · 12分</span></strong>
+                    <p>好きなものが、ちゃんと見える。</p>
+                    <div class="mock-reactions">♡　 8　　 ⇄　 1　　 ↗</div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+          <div class="art-note">
+            <span class="check-mark">✓</span>
+            <div>
+              いつものXを、すこし身軽に。<small
+                >画面イメージ / 実際の投稿ではありません</small
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        class="editions wrap"
+        id="editions"
+        aria-labelledby="editions-title"
+      >
+        <div class="section-heading">
+          <p class="eyebrow">CHOOSE YOUR WAY</p>
+          <h2 id="editions-title">ちょうどいい方を、選ぼう。</h2>
+          <p class="muted">
+            自動で整えるUserScript。必要なCSSだけ持ち帰るLite。
+          </p>
+        </div>
+        <div class="edition-grid">
+          <article class="edition">
+            <div class="edition-top">
+              <span class="edition-number">01</span
+              ><span class="pill">USER SCRIPT</span>
+            </div>
+            <h3>Simplify X</h3>
+            <p>
+              Xの設定画面から切り替え。<br />広告のDOM判定まで、まとめて任せたい人に。
+            </p>
+            <ul>
+              <li>X内の設定画面ですぐ反映</li>
+              <li>トレンド・イベント・ポスト広告の判定</li>
+              <li>UserScript管理拡張が必要</li>
+            </ul>
+            <a class="button dark" href="./simplify-x.user.js"
+              >UserScriptをインストール <span aria-hidden="true">↗</span></a
+            >
+            <p class="small muted">
+              管理拡張を導入してから開いてください。<br />更新の確認・適用は管理拡張の設定に従います。
+            </p>
+          </article>
+          <article class="edition lite-edition">
+            <div class="edition-top">
+              <span class="edition-number">02</span
+              ><span class="pill">CSS ONLY</span>
+            </div>
+            <h3>Simplify X <em>Lite</em></h3>
+            <p>
+              隠したい項目を選んで、CSSを生成。<br />自分のスタイルで、シンプルに使いたい人に。
+            </p>
+            <ul>
+              <li>UserScript不要。適用するのはCSSだけ</li>
+              <li>StylusなどのカスタムCSS機能で利用</li>
+              <li>更新は手動。広告の自動判定は対象外</li>
+            </ul>
+            <a class="button primary" href="#lite"
+              >自分のCSSをつくる <span aria-hidden="true">↓</span></a
+            >
+            <p class="small muted">
+              CSS生成はこのブラウザー内で行います。<br />選択内容をサーバーへ送信しません。
+            </p>
+          </article>
+        </div>
+      </section>
+      <section class="generator-section" id="lite" aria-labelledby="lite-title">
+        <div class="wrap">
+          <div class="section-heading generator-heading">
+            <div>
+              <p class="eyebrow">MAKE IT YOURS</p>
+              <h2 id="lite-title">
+                Simplify X <span class="serif">Lite.</span>
+              </h2>
+              <p class="muted">非表示にしたいものを選ぶ。それだけ。</p>
+            </div>
+            <span class="pill">NO USERSCRIPT REQUIRED</span>
+          </div>
+          <noscript
+            ><p class="notice">
+              CSSの生成には、このページのJavaScriptを有効にしてください。生成したCSSの適用にUserScriptは不要です。
+            </p></noscript
+          >
+          <div class="generator" id="generator" hidden>
+            <div class="selection-panel">
+              <div class="panel-top">
+                <h3>非表示にする項目</h3>
+                <div class="bulk-actions">
+                  <button type="button" id="select-all">すべて選択</button
+                  ><span>/</span
+                  ><button type="button" id="select-none">解除</button>
+                </div>
+              </div>
+              <fieldset id="options">
+                <legend class="sr-only">生成するCSSに含める非表示項目</legend>
+              </fieldset>
+              <p class="selection-foot small muted">
+                選択はこのブラウザーに保存されます。
+              </p>
+            </div>
+            <div class="output-panel">
+              <div class="panel-top">
+                <label for="format">CSSの出力</label
+                ><select id="format">
+                  <option value="css">通常のCSS</option>
+                  <option value="stylus">Stylus用 UserCSS</option>
+                </select>
+              </div>
+              <div class="code-caption">
+                <span id="filename">simplify-x-lite.css</span
+                ><span id="selection-count" aria-live="polite"></span>
+              </div>
+              <label class="sr-only" for="css-output">生成されたCSS</label
+              ><textarea
+                id="css-output"
+                readonly
+                spellcheck="false"
+                wrap="off"
+              ></textarea>
+              <div class="output-actions">
+                <button class="button primary" type="button" id="copy-css">
+                  CSSをコピー <span aria-hidden="true">⧉</span></button
+                ><button class="button outline" type="button" id="download-css">
+                  ダウンロード <span aria-hidden="true">↓</span>
+                </button>
+              </div>
+              <p
+                id="output-status"
+                class="small"
+                role="status"
+                aria-live="polite"
+              >
+                項目を選ぶと、CSSがすぐに更新されます。
+              </p>
+            </div>
+          </div>
+          <aside class="notice">
+            <span class="notice-icon" aria-hidden="true">i</span>
+            <div>
+              <strong>Liteの更新は、手動です。</strong>
+              <p>
+                このページでCSSを再生成し、適用済みのCSSを置き換えてください。Xの仕様変更でルールが効かなくなる場合があります。Liteには広告の自動判定やX内の設定画面は含まれず、広告設定で隠せるのは広告サービスへのリンクだけです。
+              </p>
+            </div>
+          </aside>
+        </div>
+      </section>
+      <section class="howto wrap" aria-labelledby="howto-title">
+        <div class="section-heading">
+          <p class="eyebrow">THREE SMALL STEPS</p>
+          <h2 id="howto-title">つくって、貼って、ひと息。</h2>
+        </div>
+        <ol class="steps">
+          <li>
+            <span>01 / SELECT</span>
+            <h3>隠したい項目を選ぶ</h3>
+            <p>
+              上のジェネレーターで選択。生成されたCSSをコピーするか、ダウンロードします。
+            </p>
+          </li>
+          <li>
+            <span>02 / APPLY</span>
+            <h3>カスタムCSSに貼り付ける</h3>
+            <p>
+              StylusなどのCSS適用機能に登録。通常のCSSは、適用先を<strong>x.comとtwitter.comだけ</strong>に設定してください。
+            </p>
+            <p>
+              Stylus用
+              UserCSSは、Chrome系では管理画面へファイルをドラッグ＆ドロップ、Firefoxではファイルをブラウザーで開いて登録します。<a
+                class="text-link"
+                href="https://github.com/openstyles/stylus/wiki/Writing-UserCSS#installing-local-files"
+                >導入手順 ↗</a
+              >
+            </p>
+          </li>
+          <li>
+            <span>03 / ENJOY</span>
+            <h3>いつものXを開く</h3>
+            <p>
+              ページを再読み込みすると反映されます。変更・更新するときは再生成して、以前のCSSを置き換えましょう。
+            </p>
+          </li>
+        </ol>
+      </section>
+      <section class="faq wrap" aria-labelledby="faq-title">
+        <div>
+          <p class="eyebrow">A FEW THINGS TO KNOW</p>
+          <h2 id="faq-title">気になること。</h2>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>Liteだけで広告をすべて消せますか？</summary>
+            <p>
+              消せません。Liteの広告設定は広告サービスへのリンクのみが対象です。ラベルやDOM構造の判定が必要なトレンド・イベント・ポスト広告には、UserScript版を利用してください。
+            </p>
+          </details>
+          <details>
+            <summary>CSSは自動で更新されますか？</summary>
+            <p>
+              自動更新はありません。新しいルールを使うには、このページでCSSを再生成し、適用済みのCSSと置き換えてください。Stylus用のファイルにも自動更新URLは含めていません。
+            </p>
+          </details>
+          <details>
+            <summary>どのブラウザーでも使えますか？</summary>
+            <p>
+              CSSの :has()
+              に対応したブラウザーと、CSSを適用する拡張機能や機能が必要です。利用する環境やXの画面構造によっては、一部のルールが効かない場合があります。
+            </p>
+          </details>
+          <details>
+            <summary>非公式のツールですか？</summary>
+            <p>
+              Simplify
+              XはXとは関係のない非公式のオープンソースプロジェクトです。投稿やアカウント設定を変更する機能はありません。
+            </p>
+          </details>
+        </div>
+      </section>
+      <aside class="notice wrap development-note" aria-label="開発方針と免責">
+        <div>
+          <strong>開発方針と免責</strong>
+          <p>
+            Simplify
+            Xは、作者自身の利便性のために作成した個人用ツールを公開しているものです。ブロック対象の特定などのタスクや、tsdownの構成を除き、開発にはGPT-6.1
+            Solを使用しています。
+          </p>
+          <p>
+            すべての環境での動作を保証するものではありません。利用はご自身の判断でお願いします。
+          </p>
+        </div>
+      </aside>
+    </main>
+    <footer class="wrap site-footer">
+      <a class="brand" href="#"
+        ><span class="brand-mark" aria-hidden="true">×</span>Simplify X</a
+      >
+      <p>少ないノイズで、いつものタイムラインを。</p>
+      <a href="https://github.com/AmaseCocoa/simplify-x"
+        >GitHub / MIT License <span aria-hidden="true">↗</span></a
+      >
+    </footer>
+  </body>
+</html>

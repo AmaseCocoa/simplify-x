@@ -39,3 +39,45 @@ pnpm test       # テストを一度実行
 保存キー `xHiderSettings` は移行前と同じです。無効化済みの項目と未知の設定キーは保持し、新規項目は既定で有効になります。バージョンなどの配布情報は `package.json`、対象URLや権限は `tsdown.config.ts` で管理します。
 
 元のルート直下のJavaScriptは `src/` に移行しました。生成ファイルを直接編集せず、TypeScriptを変更して再ビルドしてください。
+
+## LP / Simplify X Lite
+
+```sh
+pnpm build:site    # UserScriptと静的サイトをビルド → site-dist/
+pnpm preview:site  # http://127.0.0.1:4173
+```
+
+LPはUserScript版の導入リンクと、選択式のカスタムCSSジェネレーターを提供します。Liteはブラウザー内でCSSを生成し、選択内容をローカルに保存します。選択項目を外部に送信しません。
+
+- 通常のCSS: カスタムCSS機能へ貼り付け、適用先を `x.com` と `twitter.com` に限定してください。
+- Stylus用 UserCSS: 対象ドメインとメタデータを含む `.user.css` を生成します。Chrome系ではStylus管理画面へドラッグ＆ドロップ、Firefoxではファイルをブラウザーで開いて登録します。[Stylusの公式手順](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#installing-local-files)も参照してください。
+- **更新は手動**です。このページで再生成し、適用済みのCSSを置き換えてください。自動更新URLは含めません。
+- LiteはCSSだけで動作し、UserScriptは不要です。Xの設定画面へのUI追加や広告のDOM判定は含みません。広告設定は広告サービスへのリンクのみが対象です。
+- Xの仕様変更や `:has()` の対応状況により、一部のルールが動作しない場合があります。
+
+`src/options.json` の `selectors` はUserScript / Lite共通のCSSです。UserScriptのDOM判定に依存するCSSは `scriptSelectors` に分けます。`liteDescription` を指定するとLite向けの説明と「一部対応」ラベルを表示できます。定義の更新は次回のサイトビルドで反映されます。
+
+| ファイル | 役割 |
+| --- | --- |
+| `site/index.html` / `site/style.css` | LPとLiteの画面 |
+| `site/main.ts` | 項目選択・保存・コピー・ダウンロード |
+| `src/lite/css.ts` | CSS / UserCSSの生成 |
+| `tsdown.site.config.ts` / `scripts/build-site.mjs` | 静的サイトと配布物のビルド |
+| `.github/workflows/pages.yml` | 検証・GitHub Pagesへの自動公開 |
+
+## GitHub Pagesへの公開
+
+リポジトリの **Settings → Pages → Build and deployment → Source** を **GitHub Actions** に設定してください。
+
+`main`へのpushで型チェック・テスト・サイトビルドを実行し、成功すると `site-dist/` をGitHub Pagesへ公開します。Actionsの「Deploy GitHub Pages」から手動実行もできます。PRでは検証とビルドだけを実行し、公開しません。
+
+相対URLでアセットとUserScriptを参照するため、プロジェクトのサブパス（例: `/simplify-x/`）にも対応します。公開したLPには、同じビルドの `simplify-x.user.js` が含まれます。
+
+公開先はActionsのdeployジョブのURLで確認できます。ローカルビルドの成功だけでは、GitHub Pagesへの公開完了を意味しません。
+
+## 開発方針と免責
+
+Simplify Xは、作者自身の利便性のために作成した個人用ツールを公開しているものです。
+ブロック対象の特定などのタスクや、tsdownの構成を除き、開発にはGPT-6.1 Solを使用しています。
+
+すべての環境での動作を保証するものではありません。利用はご自身の判断でお願いします。

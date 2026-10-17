@@ -40,9 +40,12 @@
         "title": "広告（トレンド・ポスト・広告リンク）",
         "description": "トレンド広告、イベント広告、ポストの広告、広告サービスへのリンク",
         "selectors": [
-            "a[href=\"https://ads.x.com/?ref=gl-tw-tw-twitter-ads-rweb\"]",
+            "a[href=\"https://ads.x.com/?ref=gl-tw-tw-twitter-ads-rweb\"]"
+        ],
+        "scriptSelectors": [
             "[data-testid=\"cellInnerDiv\"]:has([data-testid=\"eventHero\"][data-simplify-x-ad])"
-        ]
+        ],
+        "liteDescription": "広告サービスへのリンクのみ。トレンド・イベント・ポスト広告の自動判定はUserScript版で利用できます。"
     },
     "hideVerifiedOrgs": {
         "title": "認証済み組織",
@@ -72,6 +75,7 @@
             "div:has(> a[href$=\"/analytics\"][aria-label$=\" 件の表示。ポストアナリティクスを表示\"])",
             "a[href*=\"/status/\"][href$=\"/analytics\"]",
             "div:has(> div > div > a[href=\"/i/account_analytics\"])"
-        ]
+        ],
+        "description": "ポストの表示回数とアナリティクスへのリンク"
     }
 }

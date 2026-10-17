@@ -7,7 +7,7 @@ export function createStyles(settings: Settings) {
     style.id = 'simplify-x-style';
 
     function updateStyle() {
-        const selectors: string[] = optionKeys.flatMap(key => settings[key] ? [...options[key].selectors] : []);
+        const selectors: string[] = optionKeys.flatMap(key => settings[key] ? [...options[key].selectors, ...(options[key].scriptSelectors ?? [])] : []);
         if (settings.hideAds) selectors.push(`[${MARK}]`);
 
         style.textContent = selectors.map(selector => `${selector} { display: none !important; }`).join('\n');
