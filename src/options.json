@@ -43,14 +43,14 @@
     },
     "hideAds": {
         "title": "広告（トレンド・ポスト・広告リンク）",
-        "description": "トレンド広告、イベント広告、ポストの広告、広告サービスへのリンク",
+        "description": "トレンド広告、イベント広告、ポストの広告、広告サービスへのリンク。広告ブロッカーを使う場合はOFFにすることをおすすめします。",
         "selectors": [
             "a[href=\"https://ads.x.com/?ref=gl-tw-tw-twitter-ads-rweb\"]"
         ],
         "scriptSelectors": [
             "[data-testid=\"cellInnerDiv\"]:has([data-testid=\"eventHero\"][data-simplify-x-ad])"
         ],
-        "liteDescription": "広告サービスへのリンクのみ。トレンド・イベント・ポスト広告の自動判定はUserScript版で利用できます。"
+        "liteDescription": "広告サービスへのリンクのみ。専用広告ブロッカーを使う場合はチェックを外し、重複するCSS処理を避けてください。"
     },
     "hideVerifiedOrgs": {
         "title": "認証済み組織",
