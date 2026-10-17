@@ -8,7 +8,7 @@ import { normalizeSettings } from '../src/settings';
 
 afterEach(() => vi.unstubAllGlobals());
 
-test.each([['ja-JP', 'ja'], ['en-US', 'ja'], ['EN_gb', 'ja'], ['fr', 'ja'], ['', 'ja']])('normalizes %s to %s', (input, expected) => {
+test.each([['ja-JP', 'ja'], ['en-US', 'en'], ['EN_gb', 'en'], ['fr', 'ja'], ['', 'ja']])('normalizes %s to %s', (input, expected) => {
     expect(resolveLanguage(input)).toBe(expected);
 });
 
