@@ -175,6 +175,40 @@
           </article>
         </div>
       </section>
+      <section class="comparison wrap" id="comparison" aria-labelledby="comparison-title">
+        <div class="section-heading">
+          <p class="eyebrow">LITE OR FULL</p>
+          <h2 id="comparison-title">機能と動作の違い。</h2>
+          <p class="muted">FullはUserScript版のSimplify Xです。必要な機能と使い方で選んでください。</p>
+        </div>
+        <div class="comparison-scroll" role="region" aria-label="LiteとFullの比較表。横にスクロールできます" tabindex="0">
+          <table>
+            <caption class="sr-only">Simplify X LiteとFullの機能・動作方式の比較</caption>
+            <thead>
+              <tr><th scope="col">比較項目</th><th scope="col">Lite <span>CSSのみ</span></th><th scope="col">Full <span>UserScript</span></th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">リンク・ボタンなどの非表示</th><td>CSSで判定できる項目に対応</td><td>共通のCSSルールに対応</td></tr>
+              <tr><th scope="row">広告</th><td>広告サービスへのリンクのみ</td><td>リンクに加え、トレンド・イベント・ポスト広告をDOMで判定</td></tr>
+              <tr><th scope="row">おすすめタブ</th><td>対象外</td><td>タブのテキストを判定して非表示</td></tr>
+              <tr><th scope="row">設定の変更</th><td>このページで再生成・再適用</td><td>X内の設定画面から即時反映</td></tr>
+              <tr><th scope="row">Xの表示言語</th><td>生成時に指定。変更後は再生成</td><td>検出した言語に追従。未対応言語は設定画面で警告</td></tr>
+              <tr><th scope="row">ルールの更新</th><td>手動でCSSを置き換え</td><td>UserScript管理拡張の更新設定に従う</td></tr>
+              <tr><th scope="row">X上で追加する処理</th><td>ブラウザーによるCSSの照合・適用。Simplify XのJavaScriptは実行しない</td><td>CSSの適用に加え、DOM変更の監視・広告やタブの判定・設定UIの処理</td></tr>
+              <tr><th scope="row">パフォーマンスの考え方</th><td>スクリプトによるDOM監視は不要。CSS照合や適用に伴う処理は発生</td><td>動的な判定に伴う追加処理が発生。負荷はページ内容や更新頻度に依存</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small muted comparison-footnote">処理方式の比較です。速度・CPU負荷・メモリ使用量の実測比較ではありません。CSSを適用する拡張機能やブラウザー自体の処理も別途発生します。</p>
+        <aside class="notice">
+          <span class="notice-icon" aria-hidden="true">i</span>
+          <div>
+            <strong>目的は、ページを静かにすること。</strong>
+            <p>Lite・Fullともに、通信量やメモリ使用量の削減は設計上の目的としていません。不要な表示を隠して、見たいものに集中できる画面にするためのツールです。</p>
+            <p>非表示にしても、X側のコンテンツ取得や内部処理が継続する場合があります。Fullもページ上の表示制御を中心としたUserScriptで、ネットワーク通信の遮断やX内部の処理・メモリ管理を最適化する仕組みは実装していません。表示が減ることによるリソース削減は保証しません。</p>
+          </div>
+        </aside>
+      </section>
       <section class="generator-section" id="lite" aria-labelledby="lite-title">
         <div class="wrap">
           <div class="section-heading generator-heading">
