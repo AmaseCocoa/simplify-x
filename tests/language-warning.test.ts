@@ -10,7 +10,7 @@ test.each(['ja', 'ja-JP', 'JA_jp'])('supported language %s does not warn', langu
 test('unsupported language warning preserves the detected code and links to a prefilled issue', () => {
     const content = languageWarning('fr-CA')!;
     expect(content.message).toContain('fr-CA');
-    expect(content.message).toContain('一部の機能が正常に動作しない可能性');
+    expect(content.message).toMatch(/some features may not work properly/i);
     expect(content.message).toContain('日本語');
     const url = new URL(content.issueUrl);
     expect(url.origin + url.pathname).toBe('https://github.com/AmaseCocoa/simplify-x/issues/new');
@@ -28,10 +28,10 @@ test('warning updates between unsupported languages and disappears for a support
     vi.stubGlobal('navigator', { language: 'ja-JP' });
     updateLanguageWarning(shadow);
     expect(warning.hidden).toBe(false);
-    expect(message.textContent).toContain('「fr」');
+    expect(message.textContent).toContain('(fr)');
     root.lang = 'de-DE';
     updateLanguageWarning(shadow);
-    expect(message.textContent).toContain('「de-DE」');
+    expect(message.textContent).toContain('(de-DE)');
     root.lang = 'ja-JP';
     updateLanguageWarning(shadow);
     expect(warning.hidden).toBe(true);

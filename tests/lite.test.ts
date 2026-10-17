@@ -4,12 +4,12 @@ import { resolveSelectors } from '../src/i18n';
 import { options, optionKeys } from '../src/options';
 
 test('only selected CSS options are included, in definition order', () => {
-    const css = generateCss(['hideGrok', 'hideCalls', 'hideCalls'], '1.6.1');
+    const css = generateCss(['hideCreators', 'hideCalls', 'hideCalls'], '1.6.1');
     expect(css).toContain('a[href="/i/calls"]');
-    expect(css).toContain('a[href="/i/grok"]');
+    expect(css).toContain('a[href="/i/jf/creators/studio"]');
     expect(css).not.toContain('a[href="/i/premium_sign_up"]');
     expect(css.match(/a\[href="\/i\/calls"\]/g)).toHaveLength(1);
-    expect(css.indexOf('a[href="/i/calls"]')).toBeLessThan(css.indexOf('a[href="/i/grok"]'));
+    expect(css.indexOf('a[href="/i/calls"]')).toBeLessThan(css.indexOf('a[href="/i/jf/creators/studio"]'));
 });
 
 test('Lite excludes every rule that requires a userscript marker', () => {
@@ -36,7 +36,7 @@ test('empty selection does not generate any hiding rules', () => {
 });
 
 test('plain CSS includes version and manual update instructions', () => {
-    const css = generateCss(['hideImagine'], '2.0.0');
+    const css = generateCss(['hideRecommendedUsers'], '2.0.0');
     expect(css).toContain('v2.0.0');
     expect(css).toContain('更新は手動');
     expect(css).not.toContain('@-moz-document');

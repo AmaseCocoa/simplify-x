@@ -59,38 +59,38 @@ test('UserScript keeps fallback CSS available for unsupported languages', () => 
 });
 
 test('localized rules can change operators, structure, and number of candidates', () => {
-    const original = translations.ja.selectors.grok;
+    const original = translations.ja.selectors.premiumSubscribe;
     const variants = [
-        'button[aria-label*="Grok"]',
-        'button[aria-label^="Ask Grok"]',
-        'div:has(> button[aria-label$="Grok"])',
-        '[data-testid="grok-button"]',
+        'aside[aria-label*="プレミアム"]',
+        'aside[aria-label^="プレミアムに"]',
+        'div:has(> aside[aria-label$="サブスクライブ"])',
+        '[data-testid="premium-banner"]',
     ];
-    translations.ja.selectors.grok = variants;
+    translations.ja.selectors.premiumSubscribe = variants;
     try {
-        expect(resolveSelectors([{ i18n: 'grok' }], 'ja')).toEqual(variants);
-        const css = generateCss(['hideGrok'], '1.6.1', 'css', 'ja');
+        expect(resolveSelectors([{ i18n: 'premiumSubscribe' }], 'ja')).toEqual(variants);
+        const css = generateCss(['hidePremium'], '1.6.1', 'css', 'ja');
         for (const selector of variants) {
             expect(css).toContain(`${selector} {\n    display: none !important;\n}`);
         }
-        expect(css).not.toContain('button[aria-label="Grok"] {');
+        expect(css).not.toContain('aside[aria-label="プレミアムにサブスクライブ"] {');
     } finally {
-        translations.ja.selectors.grok = original;
+        translations.ja.selectors.premiumSubscribe = original;
     }
 });
 
 test('empty localized lists omit a language-specific rule without removing common selectors', () => {
-    const original = translations.ja.selectors.grok;
-    translations.ja.selectors.grok = [];
+    const original = translations.ja.selectors.premiumSubscribe;
+    translations.ja.selectors.premiumSubscribe = [];
     try {
-        expect(resolveSelectors(['a[href="/i/grok"]', { i18n: 'grok' }], 'ja'))
-            .toEqual(['a[href="/i/grok"]']);
+        expect(resolveSelectors(['a[href="/i/premium_sign_up"]', { i18n: 'premiumSubscribe' }], 'ja'))
+            .toEqual(['a[href="/i/premium_sign_up"]']);
     } finally {
-        translations.ja.selectors.grok = original;
+        translations.ja.selectors.premiumSubscribe = original;
     }
 });
 
 test('expanded rules are deduplicated', () => {
-    const selectors = resolveSelectors([{ i18n: 'grok' }, { i18n: 'grok' }, 'button[aria-label="Grok"]'], 'ja');
-    expect(selectors).toEqual(['button[aria-label="Grok"]']);
+    const selectors = resolveSelectors([{ i18n: 'premiumSubscribe' }, { i18n: 'premiumSubscribe' }, 'aside[aria-label="プレミアムにサブスクライブ"]'], 'ja');
+    expect(selectors).toEqual(['aside[aria-label="プレミアムにサブスクライブ"]']);
 });
