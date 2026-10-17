@@ -99,5 +99,12 @@
             "[data-simplify-x-tab-scroll-fit] > [data-testid=\"ScrollSnap-nextButtonWrapper\"]"
         ],
         "liteDescription": "テキスト判定が必要なためLiteでは利用できません。UserScript版で利用できます。"
+    },
+    "hideTodaysNews": {
+        "title": "本日のニュース",
+        "description": "右サイドバーの「本日のニュース」を枠ごと非表示にします。通常のトレンドは残します。",
+        "selectors": [
+            "div:has(> [data-testid=\"news_sidebar\"])"
+        ]
     }
 }
