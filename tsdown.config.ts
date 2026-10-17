@@ -13,13 +13,12 @@ export default defineConfig({
   plugins: [
     userScriptPlugin({
       name: "Simplify X",
-      description: "Xの不要な機能と広告を非表示にします。拡張機能メニューから即時設定できます。",
+      description: "Xの不要な機能と広告を非表示にします。Xの設定画面から即時設定できます。",
       runAt: "document-start",
       grant: [
         "GM_addStyle",
         "GM_getValue",
         "GM_setValue",
-        "GM_registerMenuCommand",
       ],
       match: [
         'https://x.com/*',

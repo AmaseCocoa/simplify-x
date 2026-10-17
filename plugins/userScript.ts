@@ -15,7 +15,7 @@ const getAuthor = (author: unknown): string => {
 
 export const userScriptPlugin = (data: {
   name: string;
-  runAt: 'document-start' | 'context-menu' | string;
+  runAt: 'document-start' | 'document-end' | 'document-idle';
   grant: string | string[] | 'none';
   match: string[];
   description?: string;

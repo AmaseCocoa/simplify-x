@@ -1,0 +1,68 @@
+{
+    "hideCalls": {
+        "title": "通話",
+        "description": "サイドバーの通話へのリンク",
+        "selectors": [
+            "a[href=\"/i/calls\"]"
+        ]
+    },
+    "hideCreators": {
+        "title": "クリエイタースタジオ",
+        "description": "サイドバーのクリエイタースタジオ",
+        "selectors": [
+            "a[href=\"/i/jf/creators/studio\"]"
+        ]
+    },
+    "hidePremium": {
+        "title": "プレミアム関連",
+        "description": "登録への案内やサブスクリプションのおすすめ・収益化関連",
+        "selectors": [
+            "a[href=\"/i/premium_sign_up\"]",
+            "aside[aria-label=\"プレミアムにサブスクライブ\"]",
+            "div:has(> div > a[href=\"/i/premium_sign_up\"])",
+            "div:has(> a[href=\"/i/premium_sign_up?referring_page=settings\"])",
+            "div:has(> a[href=\"/settings/monetization\"])"
+        ]
+    },
+    "hideGrok": {
+        "title": "Grok関連",
+        "description": "Grokへのリンクと関連ボタン",
+        "selectors": [
+            "a[href=\"/i/grok\"]",
+            "button[aria-label=\"Grok\"]",
+            "button[aria-label=\"Grokのアクション\"]",
+            "div:has(> button[aria-label=\"画像を生成\"] > div > svg)",
+            "a[href^=\"/i/grok-redirect\"]"
+        ]
+    },
+    "hideAds": {
+        "title": "広告（トレンド・ポスト・広告リンク）",
+        "description": "トレンド広告、イベント広告、ポストの広告、広告サービスへのリンク",
+        "selectors": [
+            "a[href=\"https://ads.x.com/?ref=gl-tw-tw-twitter-ads-rweb\"]",
+            "[data-testid=\"cellInnerDiv\"]:has([data-testid=\"eventHero\"][data-simplify-x-ad])"
+        ]
+    },
+    "hideVerifiedOrgs": {
+        "title": "認証済み組織",
+        "description": "認証済み組織への登録リンク",
+        "selectors": [
+            "a[href=\"/i/verified-orgs-signup\"]"
+        ]
+    },
+    "hideImagine": {
+        "title": "Grok Imagine",
+        "description": "Grok Imagine関連",
+        "selectors": [
+            "div:has(> div > div > span[content=\"Imagineで画像を編集\"])",
+            "button[aria-label=\"Imagineで編集\"]"
+        ]
+    },
+    "hideRecommendedUsers": {
+        "title": "おすすめユーザー",
+        "description": "右に表示されるおすすめユーザーを非表示にします。",
+        "selectors": [
+            "div:has(> aside[aria-label=\"おすすめユーザー\"])"
+        ]
+    }
+}
