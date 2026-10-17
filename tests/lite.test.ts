@@ -1,5 +1,6 @@
 import { expect, test } from 'vitest';
 import { generateCss } from '../src/lite/css';
+import { localizeSelector } from '../src/i18n';
 import { options, optionKeys } from '../src/options';
 
 test('only selected CSS options are included, in definition order', () => {
@@ -24,7 +25,7 @@ test('every standalone selector gets an independent rule', () => {
     const css = generateCss(optionKeys, '1.6.1');
     const rules = optionKeys.flatMap(key => options[key].selectors);
     for (const selector of rules) {
-        expect(css).toContain(`${selector} {\n    display: none !important;\n}`);
+        expect(css).toContain(`${localizeSelector(selector, 'ja')} {\n    display: none !important;\n}`);
     }
 });
 

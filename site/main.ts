@@ -1,10 +1,12 @@
 import { options, optionKeys, type OptionKey } from '../src/options';
 import { generateCss, type CssFormat } from '../src/lite/css';
+import { siteLanguages, languageNames, resolveLanguage, type SiteLanguage } from '../src/i18n';
 import { version } from '../package.json';
 
 const STORAGE_KEY = 'simplify-x-lite-preferences';
 const output = document.querySelector<HTMLTextAreaElement>('#css-output')!;
 const formatSelect = document.querySelector<HTMLSelectElement>('#format')!;
+const languageSelect = document.querySelector<HTMLSelectElement>('#site-language')!;
 const status = document.querySelector<HTMLElement>('#output-status')!;
 const fields = document.querySelector<HTMLFieldSetElement>('#options')!;
 const checkboxes = new Map<OptionKey, HTMLInputElement>();
@@ -12,10 +14,11 @@ const checkboxes = new Map<OptionKey, HTMLInputElement>();
 interface Preferences {
     selected: OptionKey[];
     format: CssFormat;
+    language: SiteLanguage;
 }
 
 function loadPreferences(): Preferences {
-    const defaults: Preferences = { selected: [...optionKeys], format: 'css' };
+    const defaults: Preferences = { selected: [...optionKeys], format: 'css', language: 'ja' };
     try {
         const value: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? 'null');
         if (!value || typeof value !== 'object' || !('selected' in value) || !Array.isArray(value.selected)) {
@@ -24,6 +27,7 @@ function loadPreferences(): Preferences {
         const selected = value.selected;
         return {
             selected: optionKeys.filter(key => selected.includes(key)),
+            language: 'language' in value && typeof value.language === 'string' ? resolveLanguage(value.language) : 'ja',
             format: 'format' in value && value.format === 'stylus' ? 'stylus' : 'css',
         };
     } catch {
@@ -33,6 +37,13 @@ function loadPreferences(): Preferences {
 
 const preferences = loadPreferences();
 formatSelect.value = preferences.format;
+for (const language of siteLanguages) {
+    const option = document.createElement('option');
+    option.value = language;
+    option.textContent = languageNames[language];
+    languageSelect.append(option);
+}
+languageSelect.value = preferences.language;
 
 function selectedOptions(): OptionKey[] {
     return optionKeys.filter(key => checkboxes.get(key)?.checked);
@@ -48,7 +59,7 @@ function filename(): string {
 
 function updateOutput(save = true): void {
     const selected = selectedOptions();
-    output.value = generateCss(selected, version, selectedFormat());
+    output.value = generateCss(selected, version, selectedFormat(), resolveLanguage(languageSelect.value));
     document.querySelector('#filename')!.textContent = filename();
     document.querySelector('#selection-count')!.textContent = `${selected.length} / ${optionKeys.length} 項目`;
     status.textContent = selected.length === 0
@@ -57,7 +68,7 @@ function updateOutput(save = true): void {
 
     if (!save) return;
     try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({ selected, format: selectedFormat() }));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ selected, format: selectedFormat(), language: resolveLanguage(languageSelect.value) }));
     } catch {
         status.textContent = 'CSSは生成できましたが、選択を保存できません。このブラウザーでは再訪時に選び直してください。';
     }
@@ -102,6 +113,7 @@ for (const [id, checked] of [['select-all', true], ['select-none', false]] as co
 }
 
 formatSelect.addEventListener('change', () => updateOutput());
+languageSelect.addEventListener('change', () => updateOutput());
 document.querySelector('#copy-css')!.addEventListener('click', async () => {
     const css = output.value;
     try {

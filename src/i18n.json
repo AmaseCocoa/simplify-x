@@ -1,0 +1,26 @@
+{
+    "ja": {
+        "name": "日本語",
+        "labels": {
+            "premiumSubscribe": "プレミアムにサブスクライブ",
+            "grok": "Grok",
+            "grokActions": "Grokのアクション",
+            "generateImage": "画像を生成",
+            "editWithImagine": "Imagineで編集",
+            "recommendedUsers": "おすすめユーザー",
+            "postViewsSuffix": " 件の表示。ポストアナリティクスを表示"
+        }
+    },
+    "en": {
+        "name": "English",
+        "labels": {
+            "premiumSubscribe": "Subscribe to Premium",
+            "grok": "Grok",
+            "grokActions": "Grok actions",
+            "generateImage": "Generate image",
+            "editWithImagine": "Edit with Imagine",
+            "recommendedUsers": "Who to follow",
+            "postViewsSuffix": " views. View post analytics"
+        }
+    }
+}

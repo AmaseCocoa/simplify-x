@@ -4,12 +4,13 @@ import { createAdFilter, CANDIDATE, MARK } from "./modules/ads";
 import { createSettingsPage } from "./modules/settings-page";
 
 const settings = loadSettings();
-const { style, updateStyle, mountStyle } = createStyles(settings);
+const { style, updateStyle, mountStyle, refreshLanguage } = createStyles(settings);
 const { collect, inspect, rescan } = createAdFilter(settings, style);
 const settingsPage = createSettingsPage(settings, updateStyle, rescan);
 
 const observer = new MutationObserver((records) => {
   mountStyle();
+  refreshLanguage();
   settingsPage.scheduleSettingsPage();
   if (!settings.hideAds) return;
   const targets = new Set<Element>();
@@ -38,7 +39,7 @@ observer.observe(document, {
   childList: true,
   characterData: true,
   attributes: true,
-  attributeFilter: ["data-testid", "role"],
+  attributeFilter: ["data-testid", "role", "lang"],
 });
 
 rescan();
