@@ -1,7 +1,7 @@
 {
   "name": "simplify-x",
   "type": "module",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Xの不要な機能と広告を非表示にするユーザースクリプト。",
   "author": "AmaseCocoa",
   "license": "MIT",
