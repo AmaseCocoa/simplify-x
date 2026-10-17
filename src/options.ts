@@ -1,9 +1,10 @@
+import type { SelectorDefinition } from './i18n';
 import optionDefinitions from './options.json';
 
 interface VisibilityOption {
     title: string;
     description: string;
-    selectors: readonly string[];
+    selectors: readonly SelectorDefinition[];
     scriptSelectors?: readonly string[];
     liteDescription?: string;
 }

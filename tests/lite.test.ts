@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 import { generateCss } from '../src/lite/css';
-import { localizeSelector } from '../src/i18n';
+import { resolveSelectors } from '../src/i18n';
 import { options, optionKeys } from '../src/options';
 
 test('only selected CSS options are included, in definition order', () => {
@@ -23,9 +23,9 @@ test('Lite excludes every rule that requires a userscript marker', () => {
 
 test('every standalone selector gets an independent rule', () => {
     const css = generateCss(optionKeys, '1.6.1');
-    const rules = optionKeys.flatMap(key => options[key].selectors);
+    const rules = optionKeys.flatMap(key => resolveSelectors(options[key].selectors, 'ja'));
     for (const selector of rules) {
-        expect(css).toContain(`${localizeSelector(selector, 'ja')} {\n    display: none !important;\n}`);
+        expect(css).toContain(`${selector} {\n    display: none !important;\n}`);
     }
 });
 

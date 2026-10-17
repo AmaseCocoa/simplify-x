@@ -1,26 +1,55 @@
 {
     "ja": {
         "name": "日本語",
-        "labels": {
-            "premiumSubscribe": "プレミアムにサブスクライブ",
-            "grok": "Grok",
-            "grokActions": "Grokのアクション",
-            "generateImage": "画像を生成",
-            "editWithImagine": "Imagineで編集",
-            "recommendedUsers": "おすすめユーザー",
-            "postViewsSuffix": " 件の表示。ポストアナリティクスを表示"
+        "selectors": {
+            "premiumSubscribe": [
+                "aside[aria-label=\"プレミアムにサブスクライブ\"]"
+            ],
+            "grok": [
+                "button[aria-label=\"Grok\"]"
+            ],
+            "grokActions": [
+                "button[aria-label=\"Grokのアクション\"]"
+            ],
+            "generateImage": [
+                "div:has(> button[aria-label=\"画像を生成\"] > div > svg)"
+            ],
+            "editWithImagine": [
+                "button[aria-label=\"Imagineで編集\"]"
+            ],
+            "recommendedUsers": [
+                "div:has(> aside[aria-label=\"おすすめユーザー\"])"
+            ],
+            "postViews": [
+                "div:has(> a[href$=\"/analytics\"][aria-label$=\" 件の表示。ポストアナリティクスを表示\"])"
+            ]
         }
     },
     "en": {
         "name": "English",
-        "labels": {
-            "premiumSubscribe": "Subscribe to Premium",
-            "grok": "Grok",
-            "grokActions": "Grok actions",
-            "generateImage": "Generate image",
-            "editWithImagine": "Edit with Imagine",
-            "recommendedUsers": "Who to follow",
-            "postViewsSuffix": " views. View post analytics"
+        "selectors": {
+            "premiumSubscribe": [
+                "aside[aria-label=\"Subscribe to Premium\"]"
+            ],
+            "grok": [
+                "button[aria-label=\"Grok\"]"
+            ],
+            "grokActions": [
+                "button[aria-label=\"Grok actions\"]"
+            ],
+            "generateImage": [
+                "div:has(> button[aria-label=\"Generate image\"] > div > svg)"
+            ],
+            "editWithImagine": [
+                "button[aria-label=\"Edit with Imagine\"]"
+            ],
+            "recommendedUsers": [
+                "div:has(> aside[aria-label=\"Who to follow\"])"
+            ],
+            "postViews": [
+                "div:has(> a[href$=\"/analytics\"][aria-label$=\" views. View post analytics\"])",
+                "div:has(> a[href$=\"/analytics\"][aria-label$=\" view. View post analytics\"])"
+            ]
         }
     }
 }

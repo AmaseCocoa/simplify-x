@@ -1,6 +1,6 @@
 import { options, optionKeys, type OptionKey } from '../options';
 
-import { localizeSelector, languageNames, type SiteLanguage } from '../i18n';
+import { resolveSelectors, languageNames, type SiteLanguage } from '../i18n';
 
 export type CssFormat = 'css' | 'stylus';
 
@@ -11,7 +11,7 @@ export function generateCss(selected: readonly OptionKey[], version: string, for
         .filter(key => enabled.has(key))
         .map(key => {
             const option = options[key];
-            const rules = [...new Set(option.selectors.map(selector => localizeSelector(selector, language)))]
+            const rules = resolveSelectors(option.selectors, language)
                 .map(selector => `${selector} {\n    display: none !important;\n}`)
                 .join('\n\n');
             return `/* ${option.title}${option.liteDescription ? `\n * ${option.liteDescription}` : ''} */\n${rules}`;

@@ -18,7 +18,9 @@
         "description": "登録への案内やサブスクリプションのおすすめ・収益化関連",
         "selectors": [
             "a[href=\"/i/premium_sign_up\"]",
-            "aside[aria-label=\"{{premiumSubscribe}}\"]",
+            {
+                "i18n": "premiumSubscribe"
+            },
             "div:has(> div > a[href=\"/i/premium_sign_up\"])",
             "div:has(> a[href=\"/i/premium_sign_up?referring_page=settings\"])",
             "div:has(> a[href=\"/settings/monetization\"])",
@@ -30,9 +32,15 @@
         "description": "Grokへのリンクと関連ボタン",
         "selectors": [
             "a[href=\"/i/grok\"]",
-            "button[aria-label=\"{{grok}}\"]",
-            "button[aria-label=\"{{grokActions}}\"]",
-            "div:has(> button[aria-label=\"{{generateImage}}\"] > div > svg)",
+            {
+                "i18n": "grok"
+            },
+            {
+                "i18n": "grokActions"
+            },
+            {
+                "i18n": "generateImage"
+            },
             "a[href^=\"/i/grok-redirect\"]"
         ]
     },
@@ -59,20 +67,26 @@
         "description": "Grok Imagine関連",
         "selectors": [
             "div:has(> div > div > span):has(> button > div > svg > g > path[d=\"M2.917 12.5l3.75-3.333 2.917 2.916\"])",
-            "button[aria-label=\"{{editWithImagine}}\"]"
+            {
+                "i18n": "editWithImagine"
+            }
         ]
     },
     "hideRecommendedUsers": {
         "title": "おすすめユーザー",
         "description": "右に表示されるおすすめユーザーを非表示にします。",
         "selectors": [
-            "div:has(> aside[aria-label=\"{{recommendedUsers}}\"])"
+            {
+                "i18n": "recommendedUsers"
+            }
         ]
     },
     "hideImpression": {
         "title": "インプレッションを非表示",
         "selectors": [
-            "div:has(> a[href$=\"/analytics\"][aria-label$=\"{{postViewsSuffix}}\"])",
+            {
+                "i18n": "postViews"
+            },
             "a[href*=\"/status/\"][href$=\"/analytics\"]",
             "div:has(> div > div > a[href=\"/i/account_analytics\"])"
         ],

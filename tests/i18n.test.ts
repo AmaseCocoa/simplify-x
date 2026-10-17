@@ -1,6 +1,6 @@
 import { afterEach, expect, test, vi } from 'vitest';
 import translations from '../src/i18n.json';
-import { localizeSelector, resolveLanguage, siteLanguages } from '../src/i18n';
+import { resolveSelectors, resolveLanguage, siteLanguages } from '../src/i18n';
 import { options, optionKeys } from '../src/options';
 import { generateCss } from '../src/lite/css';
 import { createStyles } from '../src/modules/styles';
@@ -13,19 +13,20 @@ test.each([['ja-JP', 'ja'], ['en-US', 'en'], ['EN_gb', 'en'], ['fr', 'en'], ['',
 });
 
 test('every language provides the same label keys and resolves all selectors', () => {
-    const keys = Object.keys(translations.ja.labels).sort();
+    const keys = Object.keys(translations.ja.selectors).sort();
     for (const language of siteLanguages) {
-        expect(Object.keys(translations[language].labels).sort()).toEqual(keys);
+        expect(Object.keys(translations[language].selectors).sort()).toEqual(keys);
         for (const key of optionKeys) {
-            for (const selector of options[key].selectors) {
-                expect(localizeSelector(selector, language)).not.toMatch(/\{\{/);
+            const selectors = resolveSelectors(options[key].selectors, language);
+            for (const selector of selectors) {
+                expect(selector).not.toMatch(/\{\{/);
             }
         }
     }
 });
 
 test('unknown translation keys fail rather than silently emitting broken CSS', () => {
-    expect(() => localizeSelector('[aria-label="{{missing}}"]', 'ja')).toThrow('Unknown selector translation');
+    expect(() => resolveSelectors([{ i18n: 'missing' }], 'ja')).toThrow('Unknown localized selector');
 });
 
 test.each(['css', 'stylus'] as const)('Lite generates %s for the selected X language', format => {
@@ -60,4 +61,45 @@ test('UserScript refreshes its CSS when html lang changes', () => {
     root.lang = '';
     refreshLanguage();
     expect(style.textContent).toContain('aria-label="Who to follow"');
+});
+
+test('localized rules can change operators, structure, and number of candidates', () => {
+    const original = translations.en.selectors.grok;
+    const variants = [
+        'button[aria-label*="Grok"]',
+        'button[aria-label^="Ask Grok"]',
+        'div:has(> button[aria-label$="Grok"])',
+        '[data-testid="grok-button"]',
+    ];
+    translations.en.selectors.grok = variants;
+    try {
+        expect(resolveSelectors([{ i18n: 'grok' }], 'en')).toEqual(variants);
+        expect(resolveSelectors([{ i18n: 'grok' }], 'ja')).toEqual(['button[aria-label="Grok"]']);
+        const css = generateCss(['hideGrok'], '1.6.1', 'css', 'en');
+        for (const selector of variants) {
+            expect(css).toContain(`${selector} {\n    display: none !important;\n}`);
+        }
+        expect(css).not.toContain('button[aria-label="Grok"] {');
+    } finally {
+        translations.en.selectors.grok = original;
+    }
+});
+
+test('empty localized lists omit a language-specific rule without removing common selectors', () => {
+    const original = translations.en.selectors.grok;
+    translations.en.selectors.grok = [];
+    try {
+        expect(resolveSelectors(['a[href="/i/grok"]', { i18n: 'grok' }], 'en'))
+            .toEqual(['a[href="/i/grok"]']);
+    } finally {
+        translations.en.selectors.grok = original;
+    }
+});
+
+test('expanded rules are deduplicated and all English view variants are emitted', () => {
+    const selectors = resolveSelectors([{ i18n: 'grok' }, { i18n: 'grok' }, 'button[aria-label="Grok"]'], 'en');
+    expect(selectors).toEqual(['button[aria-label="Grok"]']);
+    const css = generateCss(['hideImpression'], '1.6.1', 'css', 'en');
+    expect(css).toContain('aria-label$=" view. View post analytics"');
+    expect(css).toContain('aria-label$=" views. View post analytics"');
 });

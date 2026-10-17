@@ -1,6 +1,6 @@
 import { options, optionKeys } from '../options';
 import type { Settings } from '../settings';
-import { localizeSelector, resolveLanguage, type SiteLanguage } from '../i18n';
+import { resolveSelectors, resolveLanguage, type SiteLanguage } from '../i18n';
 import { MARK } from './ads';
 
 export function createStyles(settings: Settings) {
@@ -19,10 +19,16 @@ export function createStyles(settings: Settings) {
     function updateStyle() {
         const language = pageLanguage();
         currentLanguage = language;
-        const selectors: string[] = optionKeys.flatMap(key => settings[key] ? [...options[key].selectors, ...(options[key].scriptSelectors ?? [])] : []);
+        const selectors = optionKeys.flatMap(key => {
+            if (!settings[key]) return [];
+            return resolveSelectors([
+                ...options[key].selectors,
+                ...(options[key].scriptSelectors ?? []),
+            ], language);
+        });
         if (settings.hideAds) selectors.push(`[${MARK}]`);
 
-        style.textContent = selectors.map(selector => `${localizeSelector(selector, language)} { display: none !important; }`).join('\n');
+        style.textContent = selectors.map(selector => `${selector} { display: none !important; }`).join('\n');
         mountStyle();
     }
 
