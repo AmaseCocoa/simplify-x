@@ -94,7 +94,9 @@
         "description": "タイムラインの「おすすめ」タブを非表示にします。",
         "selectors": [],
         "scriptSelectors": [
-            "[data-simplify-x-for-you]"
+            "[data-simplify-x-for-you]",
+            "[data-simplify-x-tab-scroll-fit] > [data-testid=\"ScrollSnap-prevButtonWrapper\"]",
+            "[data-simplify-x-tab-scroll-fit] > [data-testid=\"ScrollSnap-nextButtonWrapper\"]"
         ],
         "liteDescription": "テキスト判定が必要なためLiteでは利用できません。UserScript版で利用できます。"
     }

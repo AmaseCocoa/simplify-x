@@ -1,3 +1,4 @@
+import { createTabScrollController } from "./tab-scroll";
 import { detectPageLanguage, forYouTabLabel, resolveLanguage, type SiteLanguage } from '../i18n';
 import type { Settings } from '../settings';
 
@@ -13,6 +14,7 @@ export function isForYouTab(node: Element, language: SiteLanguage): boolean {
 }
 
 export function createForYouFilter(settings: Settings) {
+    const tabScroll = createTabScrollController(settings);
     function inspect(node: Element): void {
         if (!node.isConnected) return;
         const hidden = settings.hideForYouTab && isForYouTab(node, resolveLanguage(detectPageLanguage()));
@@ -22,6 +24,7 @@ export function createForYouFilter(settings: Settings) {
 
     function rescan(): void {
         document.querySelectorAll(TARGETS).forEach(inspect);
+        tabScroll.schedule();
     }
 
     function collect(root: Node, targets: Set<Element>): void {
@@ -44,6 +47,7 @@ export function createForYouFilter(settings: Settings) {
             record.addedNodes.forEach(node => collect(node, targets));
         }
         targets.forEach(inspect);
+        if (targets.size > 0) tabScroll.schedule();
     }
 
     return { inspect, rescan, processMutations };

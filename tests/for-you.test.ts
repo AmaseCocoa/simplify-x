@@ -30,6 +30,7 @@ test('matches the localized tab title and leaves other tabs alone', () => {
 
 test('marks the wrapper and restores it when reused or disabled', () => {
     vi.stubGlobal('document', { documentElement: { lang: 'ja' } });
+    vi.stubGlobal('ResizeObserver', class { observe() {} unobserve() {} });
     const settings = normalizeSettings({});
     const filter = createForYouFilter(settings);
     const { element, tab } = card('おすすめ');
