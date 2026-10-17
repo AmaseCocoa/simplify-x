@@ -3,7 +3,8 @@
         "name": "日本語",
         "selectors": {
             "premiumSubscribe": [
-                "aside[aria-label=\"プレミアムにサブスクライブ\"]"
+                "aside[aria-label=\"プレミアムにサブスクライブ\"]",
+                "div:has(> aside[aria-label=\"プレミアムにサブスクライブ\"]:only-child)"
             ],
             "grokActions": [
                 "button[aria-label=\"Grokのアクション\"]"
@@ -26,7 +27,8 @@
         "name": "English",
         "selectors": {
             "premiumSubscribe": [
-                "aside[aria-label=\"Subscribe to Premium\"]"
+                "aside[aria-label=\"Subscribe to Premium\"]",
+                "div:has(> aside[aria-label=\"Subscribe to Premium\"]:only-child)"
             ],
             "grokActions": [
                 "button[aria-label=\"Grok actions\"]"

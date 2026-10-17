@@ -92,5 +92,5 @@ test('empty localized lists omit a language-specific rule without removing commo
 
 test('expanded rules are deduplicated', () => {
     const selectors = resolveSelectors([{ i18n: 'premiumSubscribe' }, { i18n: 'premiumSubscribe' }, 'aside[aria-label="プレミアムにサブスクライブ"]'], 'ja');
-    expect(selectors).toEqual(['aside[aria-label="プレミアムにサブスクライブ"]']);
+    expect(selectors).toEqual(translations.ja.selectors.premiumSubscribe);
 });
