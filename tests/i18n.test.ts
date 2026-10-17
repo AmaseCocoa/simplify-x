@@ -8,7 +8,7 @@ import { normalizeSettings } from '../src/settings';
 
 afterEach(() => vi.unstubAllGlobals());
 
-test.each([['ja-JP', 'ja'], ['en-US', 'en'], ['EN_gb', 'en'], ['fr', 'en'], ['', 'en']])('normalizes %s to %s', (input, expected) => {
+test.each([['ja-JP', 'ja'], ['en-US', 'ja'], ['EN_gb', 'ja'], ['fr', 'ja'], ['', 'ja']])('normalizes %s to %s', (input, expected) => {
     expect(resolveLanguage(input)).toBe(expected);
 });
 
@@ -29,77 +29,68 @@ test('unknown translation keys fail rather than silently emitting broken CSS', (
     expect(() => resolveSelectors([{ i18n: 'missing' }], 'ja')).toThrow('Unknown localized selector');
 });
 
-test.each(['css', 'stylus'] as const)('Lite generates %s for the selected X language', format => {
-    const selected = ['hidePremium', 'hideGrok', 'hideRecommendedUsers', 'hideImpression'] as const;
-    const ja = generateCss(selected, '1.6.1', format, 'ja');
-    const en = generateCss(selected, '1.6.1', format, 'en');
-    expect(ja).toContain('aria-label="おすすめユーザー"');
-    expect(en).toContain('aria-label="Who to follow"');
-    expect(en).toContain('aria-label="Grok actions"');
-    expect(en).toContain('aria-label="Generate image"');
-    expect(en).toContain('aria-label="Subscribe to Premium"');
-    expect(en).toContain('aria-label$=" views. View post analytics"');
-    expect(en).not.toContain('aria-label="おすすめユーザー"');
-    expect(en).not.toContain('{{');
-    expect(en).not.toContain('data-simplify-x');
-    expect(ja).toContain('a[href="/i/premium_sign_up"]');
-    expect(en).toContain('a[href="/i/premium_sign_up"]');
+test.each(['css', 'stylus'] as const)('Lite generates %s for each configured language', format => {
+    for (const language of siteLanguages) {
+        const css = generateCss(optionKeys, '1.6.1', format, language);
+        expect(css).not.toContain('{{');
+        expect(css).not.toContain('data-simplify-x');
+        for (const key of optionKeys) {
+            for (const selector of resolveSelectors(options[key].selectors, language)) {
+                expect(css).toContain(selector);
+            }
+        }
+    }
 });
 
-test('UserScript refreshes its CSS when html lang changes', () => {
+test('UserScript keeps fallback CSS available for unsupported languages', () => {
     const style = { id: '', textContent: '', isConnected: true };
     const root = { lang: 'ja' };
     vi.stubGlobal('document', { createElement: () => style, documentElement: root });
-    vi.stubGlobal('navigator', { language: 'en-US' });
+    vi.stubGlobal('navigator', { language: 'ja-JP' });
     const { updateStyle, refreshLanguage } = createStyles(normalizeSettings({}));
     updateStyle();
-    expect(style.textContent).toContain('aria-label="おすすめユーザー"');
-    root.lang = 'en-US';
+    const japaneseCss = style.textContent;
+    root.lang = 'fr';
     refreshLanguage();
-    expect(style.textContent).toContain('aria-label="Who to follow"');
-    expect(style.textContent).not.toContain('aria-label="おすすめユーザー"');
+    expect(style.textContent).toBe(japaneseCss);
     root.lang = '';
     refreshLanguage();
-    expect(style.textContent).toContain('aria-label="Who to follow"');
+    expect(style.textContent).toBe(japaneseCss);
 });
 
 test('localized rules can change operators, structure, and number of candidates', () => {
-    const original = translations.en.selectors.grok;
+    const original = translations.ja.selectors.grok;
     const variants = [
         'button[aria-label*="Grok"]',
         'button[aria-label^="Ask Grok"]',
         'div:has(> button[aria-label$="Grok"])',
         '[data-testid="grok-button"]',
     ];
-    translations.en.selectors.grok = variants;
+    translations.ja.selectors.grok = variants;
     try {
-        expect(resolveSelectors([{ i18n: 'grok' }], 'en')).toEqual(variants);
-        expect(resolveSelectors([{ i18n: 'grok' }], 'ja')).toEqual(['button[aria-label="Grok"]']);
-        const css = generateCss(['hideGrok'], '1.6.1', 'css', 'en');
+        expect(resolveSelectors([{ i18n: 'grok' }], 'ja')).toEqual(variants);
+        const css = generateCss(['hideGrok'], '1.6.1', 'css', 'ja');
         for (const selector of variants) {
             expect(css).toContain(`${selector} {\n    display: none !important;\n}`);
         }
         expect(css).not.toContain('button[aria-label="Grok"] {');
     } finally {
-        translations.en.selectors.grok = original;
+        translations.ja.selectors.grok = original;
     }
 });
 
 test('empty localized lists omit a language-specific rule without removing common selectors', () => {
-    const original = translations.en.selectors.grok;
-    translations.en.selectors.grok = [];
+    const original = translations.ja.selectors.grok;
+    translations.ja.selectors.grok = [];
     try {
-        expect(resolveSelectors(['a[href="/i/grok"]', { i18n: 'grok' }], 'en'))
+        expect(resolveSelectors(['a[href="/i/grok"]', { i18n: 'grok' }], 'ja'))
             .toEqual(['a[href="/i/grok"]']);
     } finally {
-        translations.en.selectors.grok = original;
+        translations.ja.selectors.grok = original;
     }
 });
 
-test('expanded rules are deduplicated and all English view variants are emitted', () => {
-    const selectors = resolveSelectors([{ i18n: 'grok' }, { i18n: 'grok' }, 'button[aria-label="Grok"]'], 'en');
+test('expanded rules are deduplicated', () => {
+    const selectors = resolveSelectors([{ i18n: 'grok' }, { i18n: 'grok' }, 'button[aria-label="Grok"]'], 'ja');
     expect(selectors).toEqual(['button[aria-label="Grok"]']);
-    const css = generateCss(['hideImpression'], '1.6.1', 'css', 'en');
-    expect(css).toContain('aria-label$=" view. View post analytics"');
-    expect(css).toContain('aria-label$=" views. View post analytics"');
 });

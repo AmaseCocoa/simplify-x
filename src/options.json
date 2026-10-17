@@ -32,9 +32,7 @@
         "description": "Grokへのリンクと関連ボタン",
         "selectors": [
             "a[href=\"/i/grok\"]",
-            {
-                "i18n": "grok"
-            },
+            "button[aria-label=\"Grok\"]",
             {
                 "i18n": "grokActions"
             },

@@ -1,3 +1,4 @@
+import { updateLanguageWarning } from "./language-warning";
 import {
   isPlainClick,
   navigationStyles,
@@ -134,6 +135,7 @@ export function createSettingsPage(
     const container = detailVisible ? detail : list?.parentElement;
     if (!container) return;
     if (pageHost?.isConnected && pageHost.parentElement === container) {
+      if (pageHost.shadowRoot) updateLanguageWarning(pageHost.shadowRoot);
       coverChildren(container);
       return;
     }

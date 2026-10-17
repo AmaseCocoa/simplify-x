@@ -1,4 +1,5 @@
 import { options, optionKeys, type OptionKey } from "../options";
+import { updateLanguageWarning } from "./language-warning";
 import type { Settings } from "../settings";
 
 export const navigationStyles = `
@@ -51,8 +52,12 @@ export function renderSettingsView(
 ): void {
   shadow.innerHTML = `
 <style>
-display:block; width:100%; color:var(--sx-text); font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color-scheme:$ {
-    darkMode ? 'dark' : 'light';
+:host {
+    display:block;
+    width:100%;
+    color:var(--sx-text);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color-scheme:${darkMode ? 'dark' : 'light'};
 }
 * {
     box-sizing:border-box;
@@ -146,6 +151,28 @@ input:checked::after {
     outline:2px solid #1d9bf0;
     outline-offset:4px;
 }
+#language-warning {
+    margin:16px;
+    padding:16px;
+    border:1px solid #b98725;
+    border-radius:8px;
+    background:rgba(185,135,37,.12);
+}
+#language-warning[hidden] {
+    display:none;
+}
+#language-warning p {
+    color:inherit;
+    overflow-wrap:anywhere;
+}
+#language-warning a {
+    display:inline-block;
+    width:auto;
+    height:auto;
+    margin:8px 0 0;
+    border-radius:0;
+    text-decoration:underline;
+}
 #status {
     padding:16px;
     min-height:52px;
@@ -162,11 +189,16 @@ input:checked::after {
 <h2 id="title" tabindex="-1">Simplify X</h2>
 </header>
 <p class="intro">Xに表示する項目を管理します。変更は自動で保存され、すぐに反映されます。</p>
+<aside id="language-warning" role="alert" hidden>
+<p></p>
+<a target="_blank" rel="noopener noreferrer">GitHub Issueで言語対応をリクエストする</a>
+</aside>
 <h3>非表示にする項目</h3>
 <div id="fields">
 </div>
 <p id="status" role="status" aria-live="polite">チェックした項目を非表示にします。</p>
 </section>`;
+  updateLanguageWarning(shadow);
   const backLink = shadow.querySelector("a")!;
   const fields = shadow.getElementById("fields")!;
   const status = shadow.getElementById("status")!;

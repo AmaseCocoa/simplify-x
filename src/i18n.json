@@ -5,9 +5,6 @@
             "premiumSubscribe": [
                 "aside[aria-label=\"プレミアムにサブスクライブ\"]"
             ],
-            "grok": [
-                "button[aria-label=\"Grok\"]"
-            ],
             "grokActions": [
                 "button[aria-label=\"Grokのアクション\"]"
             ],

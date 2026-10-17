@@ -14,9 +14,22 @@ export const languageNames = Object.fromEntries(siteLanguages.map(language => [l
 
 export type SelectorDefinition = string | { i18n: string };
 
-export function resolveLanguage(language: string): SiteLanguage {
+function supportedLanguage(language: string): SiteLanguage | undefined {
     const base = language.trim().toLowerCase().split(/[-_]/)[0];
-    return siteLanguages.find(candidate => candidate === base) ?? 'ja';
+    return siteLanguages.find(candidate => candidate === base);
+}
+
+export function resolveLanguage(language: string): SiteLanguage {
+    return supportedLanguage(language) ?? 'ja';
+}
+
+export function isSupportedLanguage(language: string): boolean {
+    return supportedLanguage(language) !== undefined;
+}
+
+/** CSS生成と設定画面で、同じ検出元を使用する。 */
+export function detectPageLanguage(): string {
+    return document.documentElement?.lang || navigator.language;
 }
 
 export function resolveSelectors(selectors: readonly SelectorDefinition[], language: SiteLanguage): string[] {

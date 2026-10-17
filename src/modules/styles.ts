@@ -1,6 +1,6 @@
 import { options, optionKeys } from '../options';
 import type { Settings } from '../settings';
-import { resolveSelectors, resolveLanguage, type SiteLanguage } from '../i18n';
+import { resolveSelectors, resolveLanguage, detectPageLanguage, type SiteLanguage } from '../i18n';
 import { MARK } from './ads';
 
 export function createStyles(settings: Settings) {
@@ -9,7 +9,7 @@ export function createStyles(settings: Settings) {
     let currentLanguage: SiteLanguage | undefined;
 
     function pageLanguage(): SiteLanguage {
-        return resolveLanguage(document.documentElement?.lang || navigator.language);
+        return resolveLanguage(detectPageLanguage());
     }
 
     function refreshLanguage(): void {
