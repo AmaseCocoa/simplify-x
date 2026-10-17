@@ -21,7 +21,8 @@
             "aside[aria-label=\"プレミアムにサブスクライブ\"]",
             "div:has(> div > a[href=\"/i/premium_sign_up\"])",
             "div:has(> a[href=\"/i/premium_sign_up?referring_page=settings\"])",
-            "div:has(> a[href=\"/settings/monetization\"])"
+            "div:has(> a[href=\"/settings/monetization\"])",
+            "a[href=\"/i/verified-choose\"]"
         ]
     },
     "hideGrok": {
@@ -54,7 +55,7 @@
         "title": "Grok Imagine",
         "description": "Grok Imagine関連",
         "selectors": [
-            "div:has(> div > div > span[content=\"Imagineで画像を編集\"])",
+            "div:has(> div > div > span):has(> button > div > svg > g > path[d=\"M2.917 12.5l3.75-3.333 2.917 2.916\"])",
             "button[aria-label=\"Imagineで編集\"]"
         ]
     },
@@ -63,6 +64,14 @@
         "description": "右に表示されるおすすめユーザーを非表示にします。",
         "selectors": [
             "div:has(> aside[aria-label=\"おすすめユーザー\"])"
+        ]
+    },
+    "hideImpression": {
+        "title": "インプレッションを非表示",
+        "selectors": [
+            "div:has(> a[href$=\"/analytics\"][aria-label$=\" 件の表示。ポストアナリティクスを表示\"])",
+            "a[href*=\"/status/\"][href$=\"/analytics\"]",
+            "div:has(> div > div > a[href=\"/i/account_analytics\"])"
         ]
     }
 }
